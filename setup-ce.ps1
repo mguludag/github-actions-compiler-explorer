@@ -62,7 +62,7 @@ group.vc2022.groupName=Visual Studio MSVC
 # if you want more compilers, you can do that by separating the names with `:`
 # and then setting up a compiler.my_clang.exe and compiler.my_clang.name
 
-group.clang_64.compilers=clang_64
+group.clang.compilers=clang_64
 
 
 # this is the default path that clang++ is installed in
@@ -75,7 +75,7 @@ compiler.clang_64.name=clang amd64
 # follow the same instructions as for clang
 # note that if CE doesn't find a compiler, it won't break anything
 
-group.vc2022_64.compilers=vc2022_64
+#group.vc2022_64.compilers=vc2022_64
 
 
 # these are pointed at my own installation;
