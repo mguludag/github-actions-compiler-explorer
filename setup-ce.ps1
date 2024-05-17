@@ -18,7 +18,7 @@ if ($installDir) {
 # you can set it up in that compiler's config, with, say
 # compiler.my_clang.includePath=path_to_libc++
 
-includePath=C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um;$path\include
+includePath=C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\ucrt;C:\Program Files (x86)\Windows Kits\10\Include\10.0.19041.0\um;$path\include;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.19041.0\ucrt\x64;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.19041.0\um\x64;$path\lib\x64
 
 libPath=C:\Program Files (x86)\Windows Kits\10\Lib\10.0.19041.0\ucrt\x64;C:\Program Files (x86)\Windows Kits\10\Lib\10.0.19041.0\um\x64;$path\lib\x64
 
@@ -84,8 +84,8 @@ compiler.clang_64.name=clang amd64
 
 compiler.vc2022_64.exe=$path\bin\Hostx64\x64\cl.exe
 compiler.vc2022_64.name=VC 2022 amd64
-compiler.vc2022_64.libPath=&libPath64
-compiler.vc2022_64.ldPath=&libPath64
+compiler.vc2022_64.libPath=&libPath
+compiler.vc2022_64.ldPath=&libPath
 "@
       Out-File -FilePath $pwd/compiler-explorer/etc/config/c++.local.properties -InputObject $cpp_local_props -Encoding ascii
     }
