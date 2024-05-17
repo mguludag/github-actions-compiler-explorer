@@ -84,8 +84,8 @@ compiler.clang_64.name=clang amd64
 
 compiler.vc2022_64.exe=$path\bin\Hostx64\x64\cl.exe
 compiler.vc2022_64.name=VC 2022 amd64
-compiler.vc2022_64.libPath=&libPath
-compiler.vc2022_64.ldPath=&libPath
+# compiler.vc2022_64.libPath=&libPath
+# compiler.vc2022_64.ldPath=&libPath
 "@
       Out-File -FilePath $pwd/compiler-explorer/etc/config/c++.local.properties -InputObject $cpp_local_props -Encoding ascii
     }
