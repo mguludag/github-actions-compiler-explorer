@@ -1,4 +1,4 @@
-name: compiler-explorer-windows
+name: compiler-explorer-win-msvc
 
 on: [push, workflow_dispatch]
 
@@ -35,7 +35,7 @@ jobs:
            $Response = ConvertFrom-Json(Invoke-WebRequest -Uri "http://127.0.0.1:4040/api/tunnels")
            Start-Sleep -s 1
            $URLString = $Response.tunnels.public_url
-           if($URLString) { Write-Host "Open compiler-explorer from this address: $URLString you may wait around 10 mins for first run of instance"; if ($Env:TG_TOKEN -ne $null) { $URLString = ($URLString -split "://")[1]; C:\send_telegram.ps1 ${{ secrets.TG_TOKEN }} ${{ secrets.TG_CHAT_ID }} ($URLString -split "/")[0] }}
+           if($URLString) { Write-Host "Open compiler-explorer from this address: $URLString you may wait around 10 mins for first run of instance"; if ($Env:TG_TOKEN -ne $null or $Env:TG_TOKEN -ne "") { $URLString = ($URLString -split "://")[1]; C:\send_telegram.ps1 ${{ secrets.TG_TOKEN }} ${{ secrets.TG_CHAT_ID }} ($URLString -split "/")[0] }}
            C:\setup-ce.ps1
       env:
         TG_TOKEN: ${{ secrets.TG_TOKEN }}
