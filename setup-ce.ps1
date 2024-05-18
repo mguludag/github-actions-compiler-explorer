@@ -93,7 +93,7 @@ compiler.vc2022_64.name=VC 2022 amd64
 }
 
 
-Get–Process "provisioner.exe" | Stop–Process
+taskkill /IM provisioner.exe /F
 cd $pwd/compiler-explorer
 npm install
 npm install webpack -g
