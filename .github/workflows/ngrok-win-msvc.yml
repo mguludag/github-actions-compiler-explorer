@@ -1,0 +1,43 @@
+name: compiler-explorer-windows
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    steps:
+    - name: Download
+      run: choco install ngrok
+    - name: Auth
+      run: ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
+      env:
+        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+    - name: Enable TS
+      run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
+    - run: Enable-NetFirewallRule -DisplayGroup "Remote Desktop"
+    - run: Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+    - run: Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
+    - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "${{ secrets.PASSWORD }}" -Force)
+ #   - run: Set-WinUserLanguageList -LanguageList tr, en-US -Force
+        # Start-Process -FilePath "ngrok.exe" -ArgumentList "http 10240"
+    
+    
+    - run:  Invoke-WebRequest https://github.com/mguludag/pwsh_send_telegram_bot/raw/main/send_telegram.ps1 -OutFile C:\send_telegram.ps1
+    - run:  Invoke-WebRequest https://raw.githubusercontent.com/mguludag/github-actions-run-compiler-explorer/main/setup-ce.ps1 -OutFile C:\setup-ce.ps1
+
+
+      
+    - name: NGROK Tunnel and telegram
+      run: |
+           Start-Process -FilePath "ngrok.exe" -ArgumentList "http 10240"
+           Start-Sleep -s 30
+           $Response = ConvertFrom-Json(Invoke-WebRequest -Uri "http://127.0.0.1:4040/api/tunnels")
+           Start-Sleep -s 1
+           $URLString = $Response.tunnels.public_url
+           if($URLString) { Write-Host "Open compiler-explorer from this address: $URLString you may wait around 10 mins for first run of instance"; if ($Env:TG_TOKEN -ne $null) { $URLString = ($URLString -split "://")[1]; C:\send_telegram.ps1 ${{ secrets.TG_TOKEN }} ${{ secrets.TG_CHAT_ID }} ($URLString -split "/")[0] }}
+           C:\setup-ce.ps1
+      env:
+        TG_TOKEN: ${{ secrets.TG_TOKEN }}
+    
+    
