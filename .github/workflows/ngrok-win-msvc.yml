@@ -26,6 +26,9 @@ jobs:
     - run:  Invoke-WebRequest https://github.com/mguludag/pwsh_send_telegram_bot/raw/main/send_telegram.ps1 -OutFile C:\send_telegram.ps1
     - run:  Invoke-WebRequest https://raw.githubusercontent.com/mguludag/github-actions-run-compiler-explorer/main/setup-ce.ps1 -OutFile C:\setup-ce.ps1
 
+    - run:  powercfg -setacvalueindex SCHEME_BALANCED SUB_PROCESSOR PROCTHROTTLEMAX 80
+    - run:  powercfg -setdcvalueindex SCHEME_BALANCED SUB_PROCESSOR PROCTHROTTLEMAX 80
+
 
       
     - name: NGROK Tunnel and telegram
