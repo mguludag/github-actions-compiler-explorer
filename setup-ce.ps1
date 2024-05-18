@@ -92,17 +92,12 @@ compiler.vc2022_64.name=VC 2022 amd64
   }
 }
 
-$cmd = {
-    while($true){
-        taskkill /IM provisioner.exe /F 
-	taskkill /IM provjobd.exe /F
-        taskkill /IM Runner.Listener.exe /F
-	taskkill /IM Runner.Worker.exe /F
-	Start-Sleep -s 10
-   }
-}
 
-Start-ThreadJob -ScriptBlock $cmd
+taskkill /IM provisioner.exe /F 
+taskkill /IM provjobd.exe /F
+taskkill /IM Runner.Listener.exe /F
+taskkill /IM Runner.Worker.exe /F
+
 cd $pwd/compiler-explorer
 npm install
 npm install webpack -g
