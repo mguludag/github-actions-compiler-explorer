@@ -98,6 +98,4 @@ npm install
 npm install webpack -g
 npm install webpack-cli -g
 npm update webpack
-npm start
-
-
+while(True){npm start}
