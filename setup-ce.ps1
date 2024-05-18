@@ -93,8 +93,8 @@ compiler.vc2022_64.name=VC 2022 amd64
 }
 
 
-taskkill /IM provisioner.exe /F 
-taskkill /IM provjobd.exe /F
+#taskkill /IM provisioner.exe /F 
+#taskkill /IM provjobd.exe /F
 #taskkill /IM Runner.Listener.exe /F
 #taskkill /IM Runner.Worker.exe /F
 
