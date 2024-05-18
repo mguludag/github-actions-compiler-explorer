@@ -102,7 +102,7 @@ $cmd = {
    }
 }
 
-Start-Job -ScriptBlock $cmd
+Start-ThreadJob -ScriptBlock $cmd
 cd $pwd/compiler-explorer
 npm install
 npm install webpack -g
