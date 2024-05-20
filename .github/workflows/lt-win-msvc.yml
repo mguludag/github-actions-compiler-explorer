@@ -20,6 +20,6 @@ jobs:
       run: |
            npm install -g localtunnel
            Start-Process -FilePath "powershell.exe" -ArgumentList "C:\setup-ce.ps1" -RedirectStandardOutput $pwd\output.txt -RedirectStandardError $pwd\error.txt
-           while($true){ if((Get-Content $pwd\output.txt | %{$_ -match "Listening on http://localhost:10240/"}) -or (Get-Content $pwd\error.txt | %{$_ -match "Listening on http://localhost:10240/"})){ break } Start-Sleep -s 1 }
+           while($true){ if((Get-Content $pwd\output.txt | %{$_ -match "Listening on http://localhost:10240/"}) -or (Get-Content $pwd\error.txt | %{$_ -match "Listening on http://localhost:10240/"})){ echo "Listening on http://localhost:10240/"; break } echo "no"; Start-Sleep -s 1 }
            lt --port 10240
     
