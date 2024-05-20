@@ -1,0 +1,28 @@
+name: compiler-explorer-win-msvc-cf
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    steps:
+    -run: choco install cloudflared
+    - run: Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+    - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "Compiler-Explorer" -Force)
+    - run:  Invoke-WebRequest https://raw.githubusercontent.com/mguludag/github-actions-run-compiler-explorer/main/setup-ce.ps1 -OutFile C:\setup-ce.ps1
+
+    - run:  powercfg -setacvalueindex 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c SUB_PROCESSOR PROCTHROTTLEMAX 80
+    - run:  powercfg -setdcvalueindex 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c SUB_PROCESSOR PROCTHROTTLEMAX 80
+
+
+
+    - name: Run localtunnel and compiler-explorer
+      run: |
+           cloudflared tunnel --url http://localhost:10240
+           Start-Process -FilePath "powershell.exe" -ArgumentList "C:\setup-ce.ps1"
+           $Client = New-Object System.Net.Sockets.TcpClient
+           while($true){ try{ $Client.Connect("localhost", 10240) }catch{} if($Client.Connected){ break } Start-Sleep -s 1 }
+           Start-Sleep -s 3
+           cloudflared tunnel --url http://localhost:10240
+    
