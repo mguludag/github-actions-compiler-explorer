@@ -1,0 +1,25 @@
+name: compiler-explorer-win-msvc
+
+on: [push, workflow_dispatch]
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+    steps:
+    - run: Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
+    - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "Compiler-Explorer" -Force)
+    - run:  Invoke-WebRequest https://raw.githubusercontent.com/mguludag/github-actions-run-compiler-explorer/main/setup-ce.ps1 -OutFile C:\setup-ce.ps1
+
+    - run:  powercfg -setacvalueindex 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c SUB_PROCESSOR PROCTHROTTLEMAX 80
+    - run:  powercfg -setdcvalueindex 8c5e7fda-e8bf-4a96-9a85-a6e23a8c635c SUB_PROCESSOR PROCTHROTTLEMAX 80
+
+
+      
+    - name: Run localtunnel and compiler-explorer
+      run: |
+           Start-Process -FilePath "powershell.exe" -ArgumentList "C:\setup-ce.ps1"
+           npm install -g localtunnel
+           lt --port 10240
+    
+    
