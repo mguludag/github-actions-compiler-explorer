@@ -19,7 +19,7 @@ jobs:
     - name: Run localtunnel and compiler-explorer
       run: |
            npm install -g localtunnel
-           Start-Process -FilePath "powershell.exe" -ArgumentList "C:\setup-ce.ps1" -RedirectStandardOutput $Pwd\output.txt
-           while($true){ if(Get-Content $Pwd\output.txt | %{$_ -match "webpack compiled in"}){ break } Start-Sleep -s 1 }
+           Start-Process -FilePath "powershell.exe" -ArgumentList "C:\setup-ce.ps1" -RedirectStandardOutput $pwd\output.txt -RedirectStandardError $pwd\error.txt
+           while($true){ if(Get-Content $pwd\output.txt | %{$_ -match "webpack compiled in"} -or Get-Content $pwd\error.txt | %{$_ -match "webpack compiled in"}){ break } Start-Sleep -s 1 }
            lt --port 10240
     
