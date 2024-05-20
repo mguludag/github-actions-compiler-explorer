@@ -7,7 +7,7 @@ jobs:
 
     runs-on: windows-latest
     steps:
-    -run: choco install cloudflared
+    - run: choco install cloudflared
     - run: Set-NetFirewallProfile -Profile Domain,Public,Private -Enabled False
     - run: Set-LocalUser -Name "runneradmin" -Password (ConvertTo-SecureString -AsPlainText "Compiler-Explorer" -Force)
     - run:  Invoke-WebRequest https://raw.githubusercontent.com/mguludag/github-actions-run-compiler-explorer/main/setup-ce.ps1 -OutFile C:\setup-ce.ps1
