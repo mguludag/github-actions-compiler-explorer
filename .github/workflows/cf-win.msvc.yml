@@ -19,7 +19,6 @@ jobs:
 
     - name: Run localtunnel and compiler-explorer
       run: |
-           cloudflared tunnel --url http://localhost:10240
            Start-Process -FilePath "powershell.exe" -ArgumentList "C:\setup-ce.ps1"
            $Client = New-Object System.Net.Sockets.TcpClient
            while($true){ try{ $Client.Connect("localhost", 10240) }catch{} if($Client.Connected){ break } Start-Sleep -s 1 }
