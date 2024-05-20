@@ -30,18 +30,16 @@ These steps should be useful for debugging broken builds directly on the build w
 ### Option 2 (localtunnel) 
 
 1) Trigger a `compiler-explorer-win-msvc-lt` in actions page.
-2) Wait until the last step which will hang forever as it connects to ngrok and sets up the reverse tunnel.
-3) Wait for the message (`your url is: https://...`) from last step in job page (~10 min)
-4) Open URL and Enjoy! ☕
-5) When you're done introspecting, cancel the job.
+2) Wait for the message (`your url is: https://...`) from last step in job page (~10 min)
+3) Open URL and Enjoy! ☕
+4) When you're done introspecting, cancel the job.
 
 ### Option 3 (cloudflared) 
 
 1) Trigger a `compiler-explorer-win-msvc-cf` in actions page.
-2) Wait until the last step which will hang forever as it connects to ngrok and sets up the reverse tunnel.
-3) Wait for the message (`Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):`) from last step in job page (~10 min)
-4) Open URL below this line and Enjoy! ☕
-5) When you're done introspecting, cancel the job.
+2) Wait for the message (`Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):`) from last step in job page (~10 min)
+3) Open URL below this line and Enjoy! ☕
+4) When you're done introspecting, cancel the job.
 
 
 ## Useful Info
