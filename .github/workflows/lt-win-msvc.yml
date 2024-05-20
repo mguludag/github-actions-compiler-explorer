@@ -20,8 +20,7 @@ jobs:
       run: |
            npm install -g localtunnel
            Start-Process -FilePath "powershell.exe" -ArgumentList "C:\setup-ce.ps1"
-           $connection = New-Object System.Net.Sockets.TcpClient("localhost", 10240)
-           while(-Not $connection.Connected){ Start-Sleep -s 1 }
+           while($true){ try { New-Object System.Net.Sockets.TcpClient("localhost", 10240); break } Start-Sleep -s 1 }
            Start-Sleep -s 3
            lt --port 10240
     
