@@ -19,7 +19,9 @@ jobs:
     - name: Run localtunnel and compiler-explorer
       run: |
            npm install -g localtunnel
-           Start-Process -FilePath "powershell.exe" -ArgumentList "C:\setup-ce.ps1" -RedirectStandardOutput $pwd\output.txt -RedirectStandardError $pwd\error.txt
-           while($true){ if((Get-Content $pwd\output.txt | %{$_ -match "Listening on http://localhost:10240/"}) -or (Get-Content $pwd\error.txt | %{$_ -match "Listening on http://localhost:10240/"})){ echo "Listening on http://localhost:10240/"; break } echo "no"; Start-Sleep -s 1 }
+           Start-Process -FilePath "powershell.exe" -ArgumentList "C:\setup-ce.ps1"
+           $connection = New-Object System.Net.Sockets.TcpClient(localhost, 10240)
+           while(-Not $connection.Connected){ Start-Sleep -s 1 }
+           Start-Sleep -s 3
            lt --port 10240
     
