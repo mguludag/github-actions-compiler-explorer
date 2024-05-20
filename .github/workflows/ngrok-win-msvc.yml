@@ -1,4 +1,4 @@
-name: compiler-explorer-win-msvc
+name: compiler-explorer-win-msvc-ngrok
 
 on: [push, workflow_dispatch]
 
