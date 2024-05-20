@@ -26,9 +26,10 @@ jobs:
            Start-Sleep -s 3
            if($Env:TG_TOKEN -ne $null -and $Env:TG_TOKEN -ne ""){
              $URLString = $null
-             Start-Process -FilePath "powershell.exe" -ArgumentList "C:\setup-ce.ps1" -RedirectStandardOutput $pwd\out.txt -RedirectStandardError $pwd\err.txt
+             Start-Process -FilePath "cloudflared.exe" -ArgumentList "--url http://localhost:10240" -RedirectStandardOutput $pwd\out.txt -RedirectStandardError $pwd\err.txt
              Start-Sleep -s 10
              Get-Content $pwd\out.txt | ForEach-Object { if($_ -match "https://"){ $URLString = ((Select-String '(http[s]?)(:\/\/)([^\s,]+)(?=")' -Input $_).Matches.Value) }}
+             Get-Content $pwd\err.txt | ForEach-Object { if($_ -match "https://"){ $URLString = ((Select-String '(http[s]?)(:\/\/)([^\s,]+)(?=")' -Input $_).Matches.Value) }}
              if($URLString){ C:\send_telegram.ps1 ${{ secrets.TG_TOKEN }} ${{ secrets.TG_CHAT_ID }} $URLString }
              Start-Sleep -s 21600
             }else{
