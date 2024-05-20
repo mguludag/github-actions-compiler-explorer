@@ -31,6 +31,8 @@ jobs:
              Get-Content $pwd\out.txt | ForEach-Object { if($_ -match "https://"){ $str = ((Select-String '(ftp|ftps|sftp|http|https)://(\S)*' -Input $_).Matches.Value); if($str.EndsWith('com')){ $URLString = $str } }}
              Get-Content $pwd\err.txt | ForEach-Object { if($_ -match "https://"){ $str = ((Select-String '(ftp|ftps|sftp|http|https)://(\S)*' -Input $_).Matches.Value); if($str.EndsWith('com')){ $URLString = $str } }}
              if($URLString){ C:\send_telegram.ps1 ${{ secrets.TG_TOKEN }} ${{ secrets.TG_CHAT_ID }} $URLString }
+             Get-Content $pwd\out.txt
+             Get-Content $pwd\err.txt
              Start-Sleep -s 21600
             }else{
               cloudflared tunnel --url http://localhost:10240
