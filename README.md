@@ -29,33 +29,17 @@ These steps should be useful for debugging broken builds directly on the build w
 
 ### Option 2 (localtunnel) 
 
-1) Trigger a `compiler-explorer-win-msvc-lt` in actions page.
-2) Wait for the message (`your url is: https://...`) from last step in job page (~10 min)
-3) Open URL and Enjoy! ☕
-4) When you're done introspecting, cancel the job.
+1) If you want to send link via telegram bot make the secrets `TG_TOKEN` and `TG_CHAT_ID`
+2) Trigger a `compiler-explorer-win-msvc-lt` in actions page.
+3) Wait for the message (`your url is: https://...`) from last step in job page (~10 min)
+4) Open URL and Enjoy! ☕
+5) When you're done introspecting, cancel the job.
 
 ### Option 3 (cloudflared) 
 
-1) Trigger a `compiler-explorer-win-msvc-cf` in actions page.
-2) Wait for the message (`Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):`) from last step in job page (~10 min)
-3) Open URL below this line and Enjoy! ☕
-4) When you're done introspecting, cancel the job.
+1) If you want to send link via telegram bot make the secrets `TG_TOKEN` and `TG_CHAT_ID`
+2) Trigger a `compiler-explorer-win-msvc-cf` in actions page.
+3) Wait for the message (`Your quick Tunnel has been created! Visit it at (it may take some time to be reachable):`) from last step in job page (~10 min)
+4) Open URL below this line and Enjoy! ☕
+5) When you're done introspecting, cancel the job.
 
-
-## Useful Info
-
-* Runners can run jobs for up to 6 hours. So you have about 6 hours minus the minute setup time to poke around in these runners.
-* If using for introspection, add the [`continue-on-error`](https://help.github.com/en/actions/automating-your-workflow-with-github-actions/workflow-syntax-for-github-actions) property to the failing step before these remote connection steps.
-
-## Future
-
-Maybe as a GitHub Action? Oh well, this is fairly simple anyway. Or using something more FOSS than ngrok like https://github.com/TimeToogo/tunshell ?
-
-## Similar Projects
-
-These projects also allow remote introspection of very temporary environments like in GitHub Actions or other environments. 
-
-* Shell-Only (macOS, Linux, and also Windows)
-  * https://tunshell.com
-* macOS VNC
-  * https://github.com/dakotaKat/fastmac-VNCgui
